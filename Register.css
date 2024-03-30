@@ -1,0 +1,27 @@
+*{
+  margin:0;
+  padding:0;
+}
+.mCard{
+  width: 900px;
+  margin:auto;
+  margin-top: 30px;
+}
+#Formcntrl{
+  width: 900px;
+}
+.dataTables_wrapper {
+  width: 900px;
+  margin: auto;
+}
+.map{
+  width: 900px;
+  border:2px solid black;
+  margin: auto;
+}
+.inner{
+  width: 100%;
+}
+#pCont{
+  background-color: red;
+}
