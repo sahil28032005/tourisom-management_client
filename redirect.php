@@ -2,7 +2,7 @@
 session_start();
 //code for sign in
 include 'db_connection.php';
-if (isset ($_POST["form1"])) {
+if (isset($_POST["form1"])) {
   $uName = $_POST['signuname'];
   $passWord = $_POST['signpass'];
   $sql = "select * from sign_up_details where username='$uName' AND password='$passWord'";
@@ -30,7 +30,7 @@ if (isset ($_POST["form1"])) {
 
 // }
 //code for sign up
-else if (isset ($_POST["form2"])) {
+else if (isset($_POST["form2"])) {
   echo "request arrived";
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -49,10 +49,10 @@ else if (isset ($_POST["form2"])) {
 
   }
 
-} else if (isset ($_POST["log_out"])) {
+} else if (isset($_POST["log_out"])) {
   session_destroy();
   header("location:Home.php");
-} else if (isset ($_POST["submitUdata"])) {
+} else if (isset($_POST["submitUdata"])) {
   echo "post request arrived";
 
   include 'db_connection.php';
@@ -71,15 +71,29 @@ else if (isset ($_POST["form2"])) {
 
     header("location:Register.php");
   }
+} else if (isset($_POST['contact'])) {
+  // echo "arrived...";
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $message = $_POST['message'];
+  $subject = $_POST['subject'];
+  $to = 'sahilsadekar249775@gmail.com';
+  $body = "Name: $name\nEmail: $email\nMessage:\n$message";
+  if (mail($to, $subject, $body)) {
+    // echo 'Message sent successfully!';
+    header("Location: contactUs.php");
+  } else {
+    echo 'Error sending message. Please try again later.';
+  }
 }
 
 
-if (isset ($_POST["feedback"])) {
+if (isset($_POST["feedback"])) {
   echo "Form 1 have been submitted";
   include 'db_connection.php';
 
   if (!$con) {
-    die ("connection failed " . mysqli_connect_error());
+    die("connection failed " . mysqli_connect_error());
   } else {
     echo "connected successfully";
   }

@@ -13,7 +13,7 @@ function rotateBanner() {
     function next() {
         switch (val) {
             case 1:
-                document.getElementById("home").style.background = "url('images/alexander-slattery-LI748t0BK8w-unsplash.jpg') no-repeat center center/cover";
+                document.getElementById("home").style.background = "url('images/today1.jpg') no-repeat center center/cover";
                 break;
 
             case 2:
@@ -25,7 +25,7 @@ function rotateBanner() {
                 break;
 
             case 4:
-                document.getElementById("home").style.background = "url('images/jessica-ruscello-lUtPqjz5D5k-unsplash.jpg') no-repeat center center/cover";
+                document.getElementById("home").style.background = "url('images/today2.jpg') no-repeat center center/cover";
                 break;
 
             case 5:
@@ -37,7 +37,7 @@ function rotateBanner() {
                 break;
 
             case 7:
-                document.getElementById("home").style.background = "url('images/trevor-mckinnon-7nqSMKHHIP8-unsplash.jpg') no-repeat center center/cover";
+                document.getElementById("home").style.background = "url('images/today3.jpg') no-repeat center center/cover";
                 break;
 
             case 8:

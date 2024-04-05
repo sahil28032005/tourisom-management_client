@@ -130,7 +130,7 @@
           "currency": "INR",
           "name": "Sahil Services",
           "description": "Test Transaction",
-          "image": "https://example.com/your_logo",
+          "image": "logo.png",
           //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
           "handler": function (response) {
             // alert(response.razorpay_payment_id);
