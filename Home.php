@@ -64,9 +64,9 @@ if (!isset($_SESSION['userName'])) {
 
         <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
         <script src="logic.js"></script>
-        <div class="foot">
-            <?php include "footer.html"; ?>
-        </div>
+       <?php
+       include 'footer.php';
+       ?>
     </body>
 
     </html>

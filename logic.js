@@ -5,82 +5,51 @@ var typed = new Typed(".auto-type", {
     looped: true,
 
 })
-document.getElementById("home").style.background = "url('load.jpeg') no-repeat center center/cover";
+// document.getElementById("home").style.background = "url('load.jpeg') no-repeat center center/cover";
 
 function rotateBanner() {
-    document.getElementById("home").style.background = "url('load.jpg') no-repeat center center/cover";
-
     let val = 1;
 
     function next() {
-        document.getElementById("home").style.background = "url('load.jpeg') no-repeat center center/cover";
-        
-
         switch (val) {
             case 1:
-               
-               
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?Mumbai,india') no-repeat center center/cover";
-
-                val++;
+                document.getElementById("home").style.background = "url('images/alexander-slattery-LI748t0BK8w-unsplash.jpg') no-repeat center center/cover";
                 break;
 
             case 2:
-              
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?england') no-repeat center center/cover";
-
-                val++;
+                document.getElementById("home").style.background = "url('images/bambi-corro-VSnHXBD2Thc-unsplash.jpg') no-repeat center center/cover";
                 break;
 
             case 3:
-             
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?singapour') no-repeat center center/cover";
-               
-                val++;
+                document.getElementById("home").style.background = "url('images/eva-darron-oCdVtGFeDC0-unsplash.jpg') no-repeat center center/cover";
                 break;
 
             case 4:
-          
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?tajmahal') no-repeat center center/cover";
-
-                val++;
+                document.getElementById("home").style.background = "url('images/jessica-ruscello-lUtPqjz5D5k-unsplash.jpg') no-repeat center center/cover";
                 break;
 
             case 5:
-              
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?sunset') no-repeat center center/cover";
-
-                val++;
+                document.getElementById("home").style.background = "url('images/nils-nedel-ONpGBpns3cs-unsplash.jpg') no-repeat center center/cover";
                 break;
 
             case 6:
-                
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?waterfalls') no-repeat center center/cover";
-
-                val++;
+                document.getElementById("home").style.background = "url('images/philipp-kammerer-6Mxb_mZ_Q8E-unsplash.jpg') no-repeat center center/cover";
                 break;
 
             case 7:
-               
-                document.getElementById("home").style.background = "url('https://source.unsplash.com/random/1500x900/?world heritage') no-repeat center center/cover";
-    
-                val=1;
+                document.getElementById("home").style.background = "url('images/trevor-mckinnon-7nqSMKHHIP8-unsplash.jpg') no-repeat center center/cover";
+                break;
+
+            case 8:
+                document.getElementById("home").style.background = "url('images/aziz-acharki-QcnKOR3BZ-Y-unsplash.jpg') no-repeat center center/cover";
+                val = 0; // Reset the counter to start from the first image again
                 break;
         }
+        val++; // Increment the counter after setting the background
     }
-    next();
-    setInterval(next, 7000);
 
+    next(); // Initially set the background
+    setInterval(next, 7000); // Rotate the background every 7 seconds
 }
-
-
 
 rotateBanner();
-
-
-
-function grdreg(a){
-    a.style.width="300px";
- a.style.height="400px";
-}
-

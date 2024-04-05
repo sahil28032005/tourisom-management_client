@@ -4,7 +4,7 @@
 <head>
     <?php
     @session_start();
-    if (isset ($_SESSION['userName'])) {
+    if (isset($_SESSION['userName'])) {
         $sessionUname = $_SESSION['userName'];
     } else {
         $sessionUname = "Please login";
@@ -31,10 +31,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ulGrp {}
+
         .containerNav {
             display: flex;
             align-items: center;
-            position: relative;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -83,6 +90,8 @@
         .containerNav ul {
             display: flex;
             margin: 0;
+            align-items: center;
+            justify-content: center;
         }
 
         #logo {
@@ -101,37 +110,64 @@
             position: absolute;
             right: 30px;
         }
+
+        .uname {
+            position: static;
+            right: 0;
+            color: white;
+        }
+
+        .search {
+            width: 400px;
+            border-radius: 20px;
+            margin: 10px;
+            /* padding: 8px; */
+            text-align: center;
+            background-color: rgb(255, 255, 255, 0);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .authenticate {
+            height: 40px;
+        }
     </style>
 </head>
 
-<body>  
+<body>
     <nav class="containerNav">
         <div id="logo" onclick="Home.php">
             <img id="image" src="logo.png" alt="unable to fetch image">
         </div>
 
         <ul class="ulGrp">
+            <li class="item "><input placeholder="search items...." class="search" type="text"></li>
             <li class="item"><a href="Home.php">Home</a></li>
-            <li class="item"><a href="#">About Us</a></li>
-            <li class="item"><a href="#">Contact Us</a></li>
+            <li class="item"><a href="aboutUs.php">About Us</a></li>
+            <li class="item"><a href="contactUs.php">Contact Us</a></li>
             <li class="item"><a href="Bookings.php">My Packages</a></li>
             <!-- <li class="item"><a href="Register.php">Plan My Tour</a></li> -->
             <!-- <li class="item"><a href="Register.php">Plan my trip</a></li> -->
-            <li class="item"><a href="feedback.php">Feedback</a></li>
-            <form action="redirect.php" method="post">
-                <div class="uname">
-                    <?php echo $sessionUname; ?>
-                </div>
-                <div class="containerSignupdetails">
-                    <button type="button" data-bs-backdrop="static" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#sign_inModal" data-bs-whatever="@mdo">Log In</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        data-bs-whatever="@fat">Sign Up</button>
-                    <form action="redirect.php" method="post"> <button name="log_out" type="submit"
-                            class="btn btn-primary" data-bs-toggle="modal" data-bs-target=""
-                            data-bs-whatever="@getbootstrap">Log Out</button>
-                </div>
-            </form>
+            <li class="item"><a href="#">Feedback</a></li>
+            <li class="item">
+                <form class="authenticate" action="redirect.php" method="post">
+
+                    <div class="containerSignupdetails">
+                        <button type="button" data-bs-backdrop="static" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#sign_inModal" data-bs-whatever="@mdo">Log In</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" data-bs-whatever="@fat">Sign Up</button>
+                        <form action="redirect.php" method="post"> <button name="log_out" type="submit"
+                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target=""
+                                data-bs-whatever="@getbootstrap">Log Out</button>
+                            <div class="uname">
+                                Username:
+                                <?php echo $sessionUname; ?>
+                            </div>
+                    </div>
+                </form>
+            </li>
+
 
         </ul>
     </nav>

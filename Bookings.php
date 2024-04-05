@@ -30,6 +30,13 @@
       margin: auto;
       text-align: center;
     }
+
+    .navCont {
+      width: 100%;
+      ;
+      height: 150px;
+    }
+    
   </style>
 </head>
 
@@ -44,7 +51,11 @@
 
   include "db_connection.php";
   // include 'razorpay-php-2.9.0\razorpay-php-2.9.0\Razorpay.php';
-  include "navbar.php";
+  echo '<div class="navCont">';
+  include 'navBar.php';
+  echo '</div>';
+
+
   if (isset($_GET['idnt'])) {
     $ident = $_GET['idnt'];
 
@@ -101,6 +112,7 @@
   </div>
 
   </table>
+ 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script>
@@ -127,27 +139,27 @@
             console.log("payment successful with id " + response.razorpay_payment_id);
             button.innerHTML = "Payment Done";
             button.setAttribute('disabled', 'disabled');
-            let identifier=button.value;
-            let paymentId=response.razorpay_payment_id;
-            var requestData=new FormData();
+            let identifier = button.value;
+            let paymentId = response.razorpay_payment_id;
+            var requestData = new FormData();
             requestData.append('identifier', identifier);
             requestData.append('paymentId', paymentId);
             fetch('paymentInf.php', {
-                        method: 'POST',
-                        body: requestData
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.text(); // Get the text response
-                        })
-                        .then(result => {
-                            console.log(result); // Log the text response
-                        })
-                        .catch(error => {
-                            console.error('Fetch Error:', error);
-                        });
+              method: 'POST',
+              body: requestData
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.text(); // Get the text response
+              })
+              .then(result => {
+                console.log(result); // Log the text response
+              })
+              .catch(error => {
+                console.error('Fetch Error:', error);
+              });
           },
 
           "theme": {
@@ -172,7 +184,6 @@
 
 
   </script>
-
 </body>
 
 </html>
