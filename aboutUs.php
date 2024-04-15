@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-image: url('images/aboutUsbg.jpg');
             background-size: cover;
@@ -14,13 +23,13 @@
 
         .containerAbtMain {
             width: 80%;
-            height: 80vh;
+            /* height: 80vh; */
             background-color: #251f1f;
             background-color: rgba(255, 255, 255, 0);
 
             z-index: 2;
             margin: 50px auto;
-            position: static;
+            /* position: static; */
         }
 
         .top {
@@ -82,14 +91,18 @@
             color: white;
         }
 
-        .common {
+        .common1 {
             margin: 20px;
         }
 
-        .footCont {
-            width: 100%;
-            height: 350px;
-            bottom: 0;
+        .foot {
+            clear: both;
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
@@ -131,20 +144,22 @@
             <p>
             <h3>Why Choose Sahil Tours?</h3>
 
-            <li class="common"><strong>Personalized Service:</strong> Our experienced travel experts work closely with
+            <li class="common1"><strong>Personalized Service:</strong> Our experienced travel experts work closely with
                 each client
                 to understand
                 their preferences and create customized travel plans.</li>
-            <li class="common"><strong>Expert Advice:</strong> From destination recommendations to travel tips, our team
+            <li class="common1"><strong>Expert Advice:</strong> From destination recommendations to travel tips, our
+                team
                 provides
                 expert advice to
                 ensure a smooth and enjoyable travel experience.</li>
-            <li class="common"><strong>Seamless Planning:</strong> We take care of all the details, including flight
+            <li class="common1"><strong>Seamless Planning:</strong> We take care of all the details, including flight
                 bookings,
                 accommodation
                 reservations, transportation, and tour arrangements, so you can relax and focus on making memories.
             </li>
-            <li class="common"><strong>24/7 Support:<strong> Our dedicated support team is available around the clock to
+            <li class="common1"><strong>24/7 Support:<strong> Our dedicated support team is available around the clock
+                        to
                         assist you
                         during your
                         travels and address any concerns or questions you may have.</li>
@@ -152,26 +167,27 @@
             </p>
             <p>
             <h3>Our Values</h3>
-            <li class="common"><strong>Customer Satisfaction:</strong> We prioritize the satisfaction and happiness of
+            <li class="common1"><strong>Customer Satisfaction:</strong> We prioritize the satisfaction and happiness of
                 our clients,
                 striving to exceed their expectations at every step of their journey.</li>
-            <li class="common" <strong>Integrity:<strong> We operate with honesty, transparency, and integrity, ensuring
+            <li class="common1" <strong>Integrity:<strong> We operate with honesty, transparency, and integrity,
+                    ensuring
                     that our
                     clients receive accurate information and reliable services.</li>
-            <li class="common"><strong>Passion for Travel:</strong> Our team shares a passion for travel and adventure,
+            <li class="common1"><strong>Passion for Travel:</strong> Our team shares a passion for travel and adventure,
                 and we are
                 committed to sharing that passion with our clients by creating unforgettable travel experiences.</li>
-            <li class="common"><strong>Community Engagement:</strong> We are dedicated to supporting local communities
+            <li class="common1"><strong>Community Engagement:</strong> We are dedicated to supporting local communities
                 and promoting
                 sustainable tourism practices that benefit both travelers and destinations.</li>
             </p>
         </div>
+
     </div>
-    <!-- <div class="footCont">
-        <?php
-        include 'footer.php';
-        ?>
-    </div> -->
+    <div class="foot">
+        <?php include 'footer.html' ?>
+    </div>
+
 </body>
 
 </html>

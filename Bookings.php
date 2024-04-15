@@ -36,7 +36,9 @@
       ;
       height: 150px;
     }
-    
+    .footer{
+      margin-top: 20px;
+    }
   </style>
 </head>
 
@@ -46,7 +48,7 @@
   if (isset($_SESSION['userName'])) {
     $uName = $_SESSION['userName'];
   } else {
-    header("Location:Home.php");
+    header("Location:index.php");
   }
 
   include "db_connection.php";
@@ -93,26 +95,27 @@
         while ($row = mysqli_fetch_assoc($result)) {
           $identifier = $row['no'];
           echo '<tr>
-    <td>' . $row['date'] . '</td>
-    <td>' . $row['user'] . '</td>
-    <td>' . $row['package'] . '</td>
-    <td>' . $row['schedule'] . '</td>
-    <td>' . $row['status'] . '</td>
-    <td><form><button type="button" class="btn btn-danger"><a href="Bookings.php? idnt=' . $identifier . '">Delete</a></button></td>
-    <td>' . $row['email'] . '</td>
-    <td>' . $row['payable amount'] . '</td>
-    <td>' . ($row['status'] == "Confirm" ? '<button value="' . $identifier . '" type="button" class="payBtn btn btn-success">Proceed Payment</button>' : '<button disabled type="button" class="btn btn-primary">Proceed Payment</button>') . '</td>
-    </tr>
- </tbody>';
+     <td>' . $row['date'] . '</td>
+     <td>' . $row['user'] . '</td>
+     <td>' . $row['package'] . '</td>
+     <td>' . $row['schedule'] . '</td>
+     <td>' . $row['status'] . '</td>
+     <td><form><button type="button" class="btn btn-danger"><a href="Bookings.php? idnt=' . $identifier . '">Delete</a></button></td>
+     <td>' . $row['email'] . '</td>
+     <td>' . $row['payable amount'] . '</td>
+     <td>' . ($row['status'] == "Confirm" ? '<button value="' . $identifier . '" type="button" class="payBtn btn btn-success">Proceed Payment</button>' : '<button disabled type="button" class="btn btn-primary">Proceed Payment</button>') . '</td>
+     </tr>
+     </tbody>';
 
         }
 
 
         ?>
+
+
+    </table>
   </div>
 
-  </table>
- 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script>
@@ -184,6 +187,11 @@
 
 
   </script>
+  <div class="footer">
+    <?php
+    include 'footer.html';
+    ?>
+  </div>
 </body>
 
 </html>

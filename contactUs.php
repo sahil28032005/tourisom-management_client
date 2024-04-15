@@ -31,8 +31,10 @@
             /* width: 100%; */
         }
 
+
+
         .cont {
-            color: white;
+            /* color: white; */
             position: absolute;
             top: 0;
             margin-top: 200px;
@@ -125,10 +127,30 @@
             z-index: -1;
             /* Place the video behind other content */
         }
+
+        @media only screen and (max-width: 400px) {
+            .cont {
+                position: relative;
+            }
+
+            .section {
+                flex-direction: column;
+                height: max-content;
+            }
+            .sect1{
+                width: fit-content;
+            }
+            .sect2{
+                width: fit-content;
+            }
+            .textArea{
+                width: 182px;
+            }
+        }
     </style>
 </head>
 
-<body>
+<body class="root">
     <?php
     include 'navBar.php';
     ?>
@@ -203,7 +225,11 @@
             <div id="googleMap" style="width:100%;height:400px;"></div>
         </div>
     </div>
-
+    <div class="footer">
+        <?php
+        include 'footer.html';
+        ?>
+    </div>
     <script>
         function myMap() {
             var mapProp = {

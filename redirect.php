@@ -1,19 +1,57 @@
 <?php
-session_start();
-//code for sign in
 include 'db_connection.php';
 if (isset($_POST["form1"])) {
   $uName = $_POST['signuname'];
   $passWord = $_POST['signpass'];
-  $sql = "select * from sign_up_details where username='$uName' AND password='$passWord'";
+  //query to get hashedpassword
+  $hashedPass = '';
+  $sql = "SELECT password from sign_up_details where username = '$uName'";
   $res = mysqli_query($con, $sql);
+  if (mysqli_num_rows($res) > 0) {
+    $row = mysqli_fetch_assoc($res);
+    $hashedPass = $row['password'];
+    echo $hashedPass;
+  } else {
+    echo "not data found for username";
+  }
+  // $hashedPasswordFromDatabase = '$2y$10$vbhujVaBPgKhNt/OfvrViOx7jD/wABOioewChANzJCrjYekMwg5NS'; // This should be fetched from your database
+
+  if (password_verify($passWord, $hashedPass)) {
+    session_start();
+    $_SESSION["userName"] = $uName;
+    //   echo "hey ".$_SESSION["userName"]." you are logged in successfully";
+    header("location:index.php");
+  } else {
+    header("location:index.php");
+  }
+
+  // if (password_verify('tom@123', $2y$12$z5fYW1Im2WHHK)) {
+  //   echo "success hash verification";
+  //   // $sql = "select * from sign_up_details where username='$uName' AND password='$hashedPass'";
+  //   // $res = mysqli_query($con, $sql);
+  //   // if (mysqli_num_rows($res) > 0) {
+  //   //   echo "ok arrived details " . mysqli_num_rows($res);
+  //   //   $_SESSION['userName'] = $uName;
+  //   //   header("location:Home.php");
+  //   // } else {
+  //   //   // echo '<script>';
+  //   //   // echo 'alert("Enter valid credentials. Data not found.")';
+  //   //   // echo '</script>';
+  //   //   // header("location: Home.php");
+  //   //   echo "error occured...";
+  //   //   // exit(); // It's good practice to exit after header() to prevent further execution
+  //   // }
+  // } else {
+  //   echo "no success for hash verification..";
+  //   echo "$passWord";
+  // }
+
+
+
   //  $rows=mysqli_num_rows($res);
 //  echo $rows;
-  if ($res) {
-    echo "ok";
-    $_SESSION['userName'] = $uName;
-    header("location:Home.php");
-  }
+
+
 
   // header("location:sign_up.php");
   // $uName=$_POST['signuname'];
@@ -35,23 +73,60 @@ else if (isset($_POST["form2"])) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $uname = $_POST['username'];
+    //cost for hashing password
+    $options = [
+      'cost' => 12,
+    ];
 
-    $pwd = $_POST['password'];
+    //getting profile details from user
+    $file = $_FILES['fileToUpload']['tmp_name'];
+    $fileName = $_FILES['fileToUpload']['name'];
+    $fileType = $_FILES['fileToUpload']['type'];
+
+    // Read the file content
+    $data = file_get_contents($file);
+
+
+    $pwd = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $mail = $_POST['email'];
     // $sql = "INSERT INTO sign_up_details (username, password, email) 
     // VALUES ( $uname,$pwd,$mail)";
 
-    $sql = "insert into sign_up_details(username,password,email) values('$uname','$pwd','$mail')";
-    $res = mysqli_query($con, $sql);
-    if ($res) {
-      echo "success";
+    $sql = "INSERT INTO sign_up_details (username, password, email, name, type, data) 
+    VALUES (?, ?, ?, ?, ?, ?)";
+
+    // Prepare the statement
+    $stmt = mysqli_prepare($con, $sql);
+    if ($stmt) {
+      // Bind parameters to the statement
+      mysqli_stmt_bind_param($stmt, "ssssss", $uname, $pwd, $mail, $fileName, $fileType, $data);
+
+      // Execute the statement
+      $exec = mysqli_stmt_execute($stmt);
+
+      if ($exec) {
+        echo "success";
+        header("Location: index.php");
+        exit(); // Make sure to exit after redirection
+      } else {
+        echo "Error executing statement: " . mysqli_stmt_error($stmt);
+      }
+
+      // Close the statement
+      mysqli_stmt_close($stmt);
+    } else {
+      echo "Error preparing statement: " . mysqli_error($con);
     }
 
   }
 
 } else if (isset($_POST["log_out"])) {
+  // echo "log out";
+  if (!isset($_SESSION)) {
+    session_start();
+  }
   session_destroy();
-  header("location:Home.php");
+  header("location:index.php");
 } else if (isset($_POST["submitUdata"])) {
   echo "post request arrived";
 

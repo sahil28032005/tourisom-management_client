@@ -7,7 +7,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="redirect.php" method="post">
+            <form action="redirect.php" enctype="multipart/form-data" method="post">
               <div class="mb-3">
                 <label for="maill"   class="col-form-label">Enter Email</label>
                 <input type="email" name="email" class="form-control" id="recipient-name">
@@ -20,9 +20,13 @@
                 <label for="Username"   class="col-form-label">Enter Password</label>
                 <input type="text" name="password" class="form-control" id="recipient-name">
               </div>
+              <div class="mb-3">
+                <label for="Username"   class="col-form-label">Upload Profile Picture</label>
+                <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" >
+              </div>
               <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" name="form2" class="btn btn-primary">Sign Up</button>
+            <button type="submit" value="Upload Image" name="form2" class="btn btn-primary">Sign Up</button>
           </div>
             </form>
           </div>
