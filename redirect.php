@@ -1,6 +1,65 @@
 <?php
 include 'db_connection.php';
-if (isset($_POST["form1"])) {
+session_start();
+//FOR PROFILE UPDATE
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profileUpdate'])) {
+  echo "request arriven..";
+  $firstname = $_POST['firstname'];
+  // $lastname = $_POST['lastname'];
+  $gender = $_POST['gender'];
+  $email = $_POST['email'];
+  // $contact = $_POST['contact'];
+
+  // Check if file was uploaded
+  if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_OK) {
+    $file = $_FILES['fileToUpload']['tmp_name'];
+    $fileName = $_FILES['fileToUpload']['name'];
+    $fileType = $_FILES['fileToUpload']['type'];
+    $data = file_get_contents($file);
+  }
+
+  // Retrieving session information
+  $firstnameSession = $_SESSION["userName"];
+  // $mobilenumberSession = $_SESSION['mobilenumber'];
+
+  // Build the SQL query based on the fields provided in the form
+  $sql = "UPDATE sign_up_details SET ";
+  $updates = [];
+
+  if (!empty($firstname)) {
+    $updates[] = "username='$firstname'";
+    $_SESSION['userName'] = $firstname;
+  }
+  
+  // if (!empty($gender)) {
+  //   $updates[] = "gender='$gender'";
+  // }
+  if (!empty($email)) {
+    $updates[] = "email='$email'";
+  }
+  // if (!empty($contact)) {
+  //   $updates[] = "mobilenumber='$contact'";
+  //   $_SESSION['mobilenumber'] = $contact;
+  // }
+  if (isset($data)) {
+    $updates[] = "name='$fileName', type='$fileType', data='" . mysqli_real_escape_string($con, $data) . "'";
+  }
+
+  $sql .= implode(", ", $updates);
+  $sql .= " WHERE username='$firstnameSession' ";
+
+  if (mysqli_query($con, $sql)) {
+    echo "Successfully updated";
+    
+    header('location:profiledata.php');
+  } else {
+    echo "Problem occurred";
+  }
+}
+
+
+else if (isset($_POST["form1"])) {
   $uName = $_POST['signuname'];
   $passWord = $_POST['signpass'];
   //query to get hashedpassword
@@ -163,7 +222,7 @@ else if (isset($_POST["form2"])) {
 }
 
 
-if (isset($_POST["feedback"])) {
+else if (isset($_POST["feedback"])) {
   echo "Form 1 have been submitted";
   include 'db_connection.php';
 
@@ -186,6 +245,7 @@ if (isset($_POST["feedback"])) {
 
 
 }
+
 
 
 
