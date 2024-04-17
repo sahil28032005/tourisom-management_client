@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profileUpdate'])) {
     $updates[] = "username='$firstname'";
     $_SESSION['userName'] = $firstname;
   }
-  
+
   // if (!empty($gender)) {
   //   $updates[] = "gender='$gender'";
   // }
@@ -51,15 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profileUpdate'])) {
 
   if (mysqli_query($con, $sql)) {
     echo "Successfully updated";
-    
+
     header('location:profiledata.php');
   } else {
     echo "Problem occurred";
   }
-}
-
-
-else if (isset($_POST["form1"])) {
+} else if (isset($_POST["form1"])) {
   $uName = $_POST['signuname'];
   $passWord = $_POST['signpass'];
   //query to get hashedpassword
@@ -127,7 +124,7 @@ else if (isset($_POST["form1"])) {
 
 // }
 //code for sign up
-else if (isset($_POST["form2"])) {
+else if (isset($_POST["form2"]) || $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['username'])) {
   echo "request arrived";
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -142,40 +139,51 @@ else if (isset($_POST["form2"])) {
     $fileName = $_FILES['fileToUpload']['name'];
     $fileType = $_FILES['fileToUpload']['type'];
 
-    // Read the file content
-    $data = file_get_contents($file);
+    $stmt = $pdo->prepare("SELECT * FROM sign_up_details WHERE username = ?");
+    $stmt->execute([$uname]);
+    $user = $stmt->fetch();
+    if ($user) {
+      // Username already taken
+      echo json_encode(['error' => true, 'message' => 'Username is not available']);
+    } else {
+      // Username is available
+      echo json_encode(['error' => false, 'message' => 'Username is available']);
+      $data = file_get_contents($file);
 
 
-    $pwd = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $mail = $_POST['email'];
-    // $sql = "INSERT INTO sign_up_details (username, password, email) 
-    // VALUES ( $uname,$pwd,$mail)";
+      $pwd = password_hash($_POST['password'], PASSWORD_DEFAULT);
+      $mail = $_POST['email'];
+      // $sql = "INSERT INTO sign_up_details (username, password, email) 
+      // VALUES ( $uname,$pwd,$mail)";
 
-    $sql = "INSERT INTO sign_up_details (username, password, email, name, type, data) 
+      $sql = "INSERT INTO sign_up_details (username, password, email, name, type, data) 
     VALUES (?, ?, ?, ?, ?, ?)";
 
-    // Prepare the statement
-    $stmt = mysqli_prepare($con, $sql);
-    if ($stmt) {
-      // Bind parameters to the statement
-      mysqli_stmt_bind_param($stmt, "ssssss", $uname, $pwd, $mail, $fileName, $fileType, $data);
+      // Prepare the statement
+      $stmt = mysqli_prepare($con, $sql);
+      if ($stmt) {
+        // Bind parameters to the statement
+        mysqli_stmt_bind_param($stmt, "ssssss", $uname, $pwd, $mail, $fileName, $fileType, $data);
 
-      // Execute the statement
-      $exec = mysqli_stmt_execute($stmt);
+        // Execute the statement
+        $exec = mysqli_stmt_execute($stmt);
 
-      if ($exec) {
-        echo "success";
-        header("Location: index.php");
-        exit(); // Make sure to exit after redirection
+        if ($exec) {
+          echo "success";
+          header("Location: index.php");
+          exit(); // Make sure to exit after redirection
+        } else {
+          echo "Error executing statement: " . mysqli_stmt_error($stmt);
+        }
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
       } else {
-        echo "Error executing statement: " . mysqli_stmt_error($stmt);
+        echo "Error preparing statement: " . mysqli_error($con);
       }
-
-      // Close the statement
-      mysqli_stmt_close($stmt);
-    } else {
-      echo "Error preparing statement: " . mysqli_error($con);
     }
+    // Read the file content
+
 
   }
 
@@ -219,10 +227,7 @@ else if (isset($_POST["form2"])) {
   } else {
     echo 'Error sending message. Please try again later.';
   }
-}
-
-
-else if (isset($_POST["feedback"])) {
+} else if (isset($_POST["feedback"])) {
   echo "Form 1 have been submitted";
   include 'db_connection.php';
 
