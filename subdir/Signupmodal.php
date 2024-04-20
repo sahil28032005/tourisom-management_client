@@ -1,3 +1,5 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -38,31 +40,35 @@
   const username = document.getElementById('username');
   const error = document.getElementById('usernameError');
   username.addEventListener('input', function () {
-    const username = username.value.trim();
+    error.textContent = "checking avaliability....";
+    var username = $(this).val().trim();
     if (username !== '') {
       //here we have come because we have tyoed username
       checkAvl(username);
+      // console.log(username);
     }
     else {
-      error.textContent = '';
+      error.textContent = 'asdasd';
     }
   });
 
   //function for check user avaliability
   function checkAvl(username) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'redirect.php');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        if (response.error) {
-          usernameError.textContent = response.message;
+    jQuery.ajax({
+      url: "validateUsername.php",
+      data: { username: username },
+      type: "POST",
+      success: function (data) {
+        $("#usernameError").html(data);
+        if (data.includes("available")) {
+          $("#usernameError").css("color", "green");
         } else {
-          usernameError.textContent = ''; // Username is available
+          $("#usernameError").css("color", "red");
         }
-      }
-    };
-    xhr.send('username=' + encodeURIComponent(username));
+
+        $("#loaderIcon").hide();
+      },
+      error: function () { }
+    });
   }
 </script>

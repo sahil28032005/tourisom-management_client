@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profileUpdate'])) {
 
 // }
 //code for sign up
-else if (isset($_POST["form2"]) || $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['username'])) {
+else if (isset($_POST["form2"])) {
   echo "request arrived";
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -139,15 +139,6 @@ else if (isset($_POST["form2"]) || $_SERVER["REQUEST_METHOD"] === "POST" && isse
     $fileName = $_FILES['fileToUpload']['name'];
     $fileType = $_FILES['fileToUpload']['type'];
 
-    $stmt = $pdo->prepare("SELECT * FROM sign_up_details WHERE username = ?");
-    $stmt->execute([$uname]);
-    $user = $stmt->fetch();
-    if ($user) {
-      // Username already taken
-      echo json_encode(['error' => true, 'message' => 'Username is not available']);
-    } else {
-      // Username is available
-      echo json_encode(['error' => false, 'message' => 'Username is available']);
       $data = file_get_contents($file);
 
 
@@ -187,7 +178,7 @@ else if (isset($_POST["form2"]) || $_SERVER["REQUEST_METHOD"] === "POST" && isse
 
   }
 
-} else if (isset($_POST["log_out"])) {
+ else if (isset($_POST["log_out"])) {
   // echo "log out";
   if (!isset($_SESSION)) {
     session_start();
