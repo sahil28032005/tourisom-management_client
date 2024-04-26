@@ -15,7 +15,7 @@ if (!isset($_SESSION['userName'])) {
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css"
     integrity="sha384-WJUUqfoMmnfkBLne5uxXj+na/c7sesSJ32gI7GfCk4zO4GthUKhSEGyvQ839BC51" crossorigin="anonymous"> -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Registration Form in HTML CSS</title>
 
@@ -30,9 +30,22 @@ if (!isset($_SESSION['userName'])) {
       background-color: grey;
     }
 
+    /* 
     .form-group {
       width: 900px;
       margin: auto;
+    } */
+    .formCont {
+      width: 70%;
+      margin: auto;
+    }
+
+    .card {
+      margin-top: 150px;
+    }
+
+    .mCard {
+      width: 70%;
     }
   </style>
 </head>
@@ -76,10 +89,10 @@ if (!isset($_SESSION['userName'])) {
 
   }
   $method = $_SERVER['REQUEST_METHOD'];
-  echo $method;
+  // echo $method;
   if ($method == 'POST') {
-    echo "post meth";
-
+    // echo "post meth";
+  
     foreach ($_POST['cars'] as $value) {
       $package = $value;
     }
@@ -88,7 +101,7 @@ if (!isset($_SESSION['userName'])) {
     }
     $schedule = $_POST['scDAte'];
     $status = "Pending";
-    $basePrice = 1000*$pCount;
+    $basePrice = 1000 * $pCount;
     $disCountRates = [1 => 0, 2 => 0.05, 3 => 0.10, 4 => 0.15];
 
     function calculatePrice($basePrice, $pCount, $disCountRates)
@@ -124,15 +137,15 @@ if (!isset($_SESSION['userName'])) {
 
     }
   } else {
-    echo "failed to insert";
+    // echo "failed to insert";
   }
 
   ?>
 
-  <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+  <form class="formCont" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
     <div class="form-group">
       <!-- <label for="exampleInputEmail1">UserName</label>
-    <input name="uName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=""> -->
+     <input name="uName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=""> -->
       <small type="email" id="emailHelp" class="form-text text-muted">We'll never share your details with anyone
         else.</small>
     </div>
