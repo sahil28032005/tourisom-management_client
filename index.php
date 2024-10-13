@@ -66,7 +66,7 @@ if (!isset($_SESSION['userName'])) {
                         $uniqueId = $row["no"];
                         ?>
                         <div class="card myProp bCard" style="width: 18rem;">
-                            <img src="https://source.unsplash.com/random/1500x900/?<?= $dest_name ?>" class="card-img-top"
+                            <img src="https://unsplash.it/1920/1080?random/1500x900/?<?= $dest_name ?>" class="card-img-top"
                                 alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">
